@@ -1,0 +1,116 @@
+:root{
+  --bg: linear-gradient(180deg,#0f1724,#071226);
+  --box-color: #8b5e3c;
+  --accent: #ffd166;
+  --shadow: rgba(2,6,23,0.6);
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+  background:var(--bg);
+  color:#fff;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+.stage{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  gap:1.25rem;
+  position:relative;
+  padding:2rem;
+}
+
+/* Kiste zentriert */
+.box-wrap{
+  width:220px;
+  height:180px;
+  perspective:1000px;
+  cursor:pointer;
+  outline: none;
+}
+.box{
+  position:relative;
+  width:100%;
+  height:100%;
+  transform-style:preserve-3d;
+}
+.base{
+  position:absolute;
+  left:0;right:0;bottom:0;
+  height:70%;
+  background:linear-gradient(180deg,var(--box-color),#6a4030);
+  border-radius:6px;
+  box-shadow:0 12px 30px var(--shadow), inset 0 -8px 20px rgba(0,0,0,0.35);
+  z-index:1;
+}
+.lid{
+  position:absolute;
+  left:8%;
+  right:8%;
+  top: -8%;
+  height:40%;
+  background:linear-gradient(180deg,#a36d44,#7b4b2f);
+  border-radius:6px;
+  transform-origin:20% 90%;
+  transform:rotateX(0deg);
+  transition:transform 500ms cubic-bezier(.2,.9,.2,1);
+  box-shadow:0 8px 18px rgba(0,0,0,0.4);
+  z-index:2;
+}
+
+/* geöffneter Zustand */
+.box-wrap.open .lid{
+  transform:rotateX(-70deg) translateY(-6px);
+}
+
+/* Layer für Items (absolut, über Bühne) */
+#items-layer{
+  position: absolute;
+  width:100%;
+  height:100%;
+  top:0;
+  left:0;
+  pointer-events:none;
+}
+
+/* Item-Karten */
+.item{
+  position:absolute;
+  padding:8px 10px;
+  background:rgba(255,255,255,0.95);
+  color:#0b1220;
+  border-radius:8px;
+  font-weight:600;
+  font-size:0.9rem;
+  box-shadow: 0 8px 18px rgba(2,6,23,0.35);
+  transform-origin:center;
+  will-change:transform,opacity;
+}
+
+/* Controls */
+.controls{
+  display:flex;
+  gap:0.5rem;
+}
+button{
+  background:transparent;
+  color:var(--accent);
+  border:1px solid rgba(255,209,102,0.2);
+  padding:0.5rem 0.9rem;
+  border-radius:6px;
+  cursor:pointer;
+  transition:all .15s ease;
+}
+button:hover{transform:translateY(-2px)}
+button:active{transform:translateY(0)}
+
+@media (max-width:480px){
+  .box-wrap{width:160px;height:130px}
+}
